@@ -8,6 +8,8 @@ import communityRoutes from './routes/community.js'
 import commentsRoutes from './routes/comments.js'
 import usersRouter from './routes/users.js'
 import stickerRouter from './routes/sticker.js'
+import pdfRouter from './routes/pdf.js'
+import imageRouter from './routes/image.js'
 
 const app = express()
 dotenv.config()
@@ -22,6 +24,8 @@ app.use('/cars',carsRoutes)
 app.use('/comments',commentsRoutes)
 app.use('/user', usersRouter)
 app.use('/sticker',stickerRouter)
+app.use('/',pdfRouter)
+app.use('/image',imageRouter)
 app.get('/',(req,res)=>{
     res.send('car-check is up!')
 })

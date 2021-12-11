@@ -1,0 +1,270 @@
+*{
+    margin: 0 auto;
+    text-align: center;
+}
+
+img.stamp{
+    width: 9rem;
+    position: relative;
+    left: 31rem;
+    left: -1rem;}
+
+.faxHeader{
+    /* display: flex; */
+}
+.sign {
+    width: 7rem;
+    position: relative;
+    right: 30rem;
+    bottom: 1.5rem;
+    /* z-index: auto; */
+}
+.title{
+   font-family: 'Roboto', sans-serif;
+   font-size: 24px;
+}
+
+.subTitle{
+    font-size:14px;
+}
+
+.sub{
+    font-size:17px;
+}
+
+.lawBorder {
+    border: solid 4px;
+    width: 573px;
+    /* position: relative;
+    left: 7rem; */
+}
+.lawFlexBox {
+
+    margin-top: 1rem;
+}
+h4.law {
+    padding: 5px;
+}
+.law{
+    /* font-size: 20px; */
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100 !important;
+}
+.TitleBox {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.mainBorderBox {
+    display: flex;
+    flex-direction: column;
+    width: 49rem;
+    padding-top: 1rem;
+
+}
+
+.share{
+    display: flex;
+    position: relative;
+    /* left: -2rem; */
+}
+
+.faxHeaderBox {
+    width: 86%;
+    display: flex;
+}
+
+.Formh2 {
+    font-size: 13px;
+}
+
+h3.mainTitle {
+    text-decoration-line: underline;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.dec{
+    text-decoration-line: underline;
+}
+
+.site{
+    font-weight: bold;
+}
+
+h3.state {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+.tow-form{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100 !important;
+}
+
+.var{
+    display: flex;
+    margin-bottom: 1.7rem;
+}
+                                            /* var */
+.var.owner {
+    padding-left: 5px;
+}
+.var.callback {
+    padding-left: 6px;
+}
+.var.sa {
+    padding-left: 5px;
+}
+
+.var.spec {
+    padding-left: 8px;
+}
+
+.var.vin {
+    padding-right: 28px;
+}
+                                            /* start Share */
+.share.vid {
+    padding: 7px 0px 21px 0px;
+    position: relative;
+    left: 2rem;
+}
+h2.Formh2.time {
+    position: relative;
+    right: 8rem;
+}
+
+                                      
+.share.date {
+    left: 1.7rem;
+}
+
+
+
+.share.place {
+    left: 1.8rem;
+}
+h2.Formh2.year {
+    position: relative;
+    right: 8rem;
+}
+h2.Formh2.model {
+    position: relative;
+    right: 4rem;
+}
+h2.Formh2.zip {
+    position: relative;
+    right: 5rem;
+}
+
+.share.car {
+    left: 2.5rem;
+}
+
+h2.Formh2.state {
+    position: relative;
+    right: 4rem;
+}
+h2.Formh2.color {
+    position: relative;
+    right: 8rem;
+}
+
+
+                                                /* end Share */
+
+                                            /* form variables */
+h3.formAns.to {
+    position: relative;
+    right: 32rem;
+}
+h3.formAns.faxNum {
+    position: relative;
+    right: 23rem;
+}
+h3.formAns.date {
+    position: relative;
+    right: 18rem;
+}
+h3.formAns.time {
+    position: relative;
+    right: 21rem;
+}
+
+h3.formAns.from {
+    position: relative;
+    right: 31rem;
+}
+
+h3.formAns.owner {
+    position: relative;
+    right: 22rem;
+}
+
+h3.formAns.callback {
+    position: relative;
+    right: 25rem;
+}
+h3.formAns.sa {
+    position: relative;
+    right: 29rem;
+}
+h3.formAns.make {
+    position: relative;
+    right: 11rem;
+}
+h3.formAns.model {
+    position: relative;
+    right: 12rem;
+}
+
+h3.formAns.year{
+    position: relative;
+    right: 17rem;
+}
+
+h3.formAns.city {
+    position: relative;
+    right: 16rem;
+}
+
+h3.formAns.zip {
+    position: relative;
+    right: 15rem;
+}
+
+h3.formAns.tag {
+    position: relative;
+    right: 15rem;
+}
+h3.formAns.location {
+    position: relative;
+    right: 18rem;
+}
+
+h3.formAns.sta {
+    position: relative;
+    right: 9rem;
+}
+h3.formAns.color {
+    position: relative;
+    right: 19rem;
+}
+h3.formAns.vid {
+    position: relative;
+    right: 34rem;
+}
+h3.formAns.details {
+    position: relative;
+    right: 26rem;
+}
+h3.formAns.vinfo {
+    position: relative;
+    right: 25rem;
+}
+h3.formAns.reason {
+    position: relative;
+    right: 29rem;
+}
+                                        /* form variables */

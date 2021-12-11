@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <Link rel="stylesheet" href="./FaxAuthForm.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body>
+   <header class="faxHeader">
+       <div class="faxHeaderBox">
+            <img class="stamp" src="./img/PBCFnSeal2.png" alt="seal">
+        <div class="TitleBox">
+                    <h3 class="state">Palm Beach County, Florida</h3>
+                    <h1 class="title">Fax Authorization</h1>
+                    <h3>to</h3>
+                    <h1 class="subTitle">Remove/Tow Vehicle/Vessel</h1>
+                    <h2 class="sub">with out the approval or knowledge of the owner</h2>
+        </div>  
+    </div> 
+    </header>
+    <div class="lawFlexBox">
+        <div class="lawBorder">
+            <h4 class="law">Palm Beach County Towing Ordinance 2005-009 requires the real property owner or a duly authorized agent of the property owner to provide “express authorization” to the contracted towing company before a vehicle/vessel can be removed from private property without the approval or knowledge of the vehicle/vessel owner. Normally, the approval to remove a vehicle/vessel must be done in the presence of the towtruck company/driver. The only exception to this approval requirement is when the property owner or authorized agent sends a fax to the towtruck company using this form. The date and time must electronically stamped on the fax sent to the towing company. The towing company is required to retain the original fax received from the property owner/designee.</h4>
+        </div>
+    </div>
+    <div class="mainBorderBox">
+        <section class="main">
+            <h3 class="mainTitle">Please Print</h3>
+        </section>
+        <form class="tow-form">
+            <div class="var">
+                <h2 for="company" class="Formh2"> <span class="dec">To</span> (Name of  towing company):______________________________________________________</h2><br>
+                    <h3 class="formAns to">${to}</h3>
+            </div>
+            <div class="var">
+                <h2 for="faxNumber" class="Formh2">Fax number for towing company: <span class="dec">( 561 )</span>________________________________________</h2><br>
+                    <h3 class="formAns faxNum">${faxNum}</h3>
+            </div>
+            <div class="share date">
+                <h2 for="" class="Formh2">Today's:________________________________________</h2>
+                    <h3 class="formAns date">${date}</h3>
+                <h2 for="" class="Formh2 time">Time:____________________________</h2><br>
+                    <h3 class="formAns time">${time}</h3> 
+            </div> <br>
+            <div class="var">
+                <h2 for="" class="Formh2"><span class="dec">From:</span>(Your Name):__________________________________________________________________</h2><br>
+                    <h3 class="formAns from">${from}</h3>
+            </div>
+            <div class="var owner">
+                <h2 for="" class="Formh2">Owner/Agent for (Name of buisiness/Facility):________________________________________</h2><br>
+                    <h3 class="formAns owner">${owner}</h3>
+            </div>
+            <div class="var callback">
+                <h2 for="" class="Formh2">Your call back phone number:_______________________________________________________</h2><br>
+                    <h3 class="formAns callback">${callback}</h3>
+            </div>
+            <div class="var sa">
+                <h2 for="" class="Formh2">Located at Street Adress:________________________________________________________________</h2><br>
+                    <h3 class="formAns sa">${sa}</h3>
+            </div>
+                <div class="share place">
+                <h2 for="" class="Formh2">City:______________________________________________________</h2><br>
+                    <h3 class="formAns city">${city}</h3>
+                <h2 for="" class="Formh2 zip">Zip:_____________________________</h2>
+                    <h3 class="formAns zip">${zip}</h3> 
+                </div><br>
+            <div class="var spec">
+                <h2 for="" class="Formh2">Specific location of vehicle/vessel on property:________________________________________</h2><br>
+                    <h3 class="formAns location">${location}</h3>
+            </div>
+            <div class="share car">
+                <h2 for="" class="Formh2 make">Make:___________________________</h2>
+                    <h3 class="formAns make">${make}</h3>
+                <h2 for="" class="Formh2 model">Model:______________________</h2>
+                    <h3 class="formAns model">${model}</h3>
+                    <h2 for="" class="Formh2 year">Year:______________________</h2>
+                    <h3 class="formAns year">${year}</h3>
+            </div> <br>
+            <div class="share vid">
+                <h2 for="" class="Formh2 tag">Tag No.:___________________________</h2>
+                    <h3 class="formAns tag">${tag}</h3>
+                <h2 for="" class="Formh2 state">State:_________</h2><br>
+                    <h3 class="formAns sta">${sta}</h3>
+                <h2 for="" class="Formh2 color">Colors(s):__________________________</h2><br>
+                    <h3 class="formAns color">${color}</h3> <br>
+            </div>
+            <div class="var vin">
+                <h2 for="" class="Formh2">Vehicle Identification No.:____________________________________________________________</h2>
+                    <h3 class="formAns vid">${vid}</h3>
+            </div>
+            <div class="var">
+                <h2 for="" class="Formh2">Other details/description:____________________________________________________________</h2><br>
+                    <h3 class="formAns details">${details}</h3>
+            </div>
+            <div class="var">
+                <h2 for="" class="Formh2">Vehicle owner information (if known):__________________________________________________</h2><br>
+                    <h3 class="formAns vinfo">${vinfo}</h3>
+            </div>
+            <div class="var">
+                <h2 for="" class="Formh2">Reason for Removal:_________________________________________________________________</h2><br> <br>
+                    <h3 class="formAns reason">${reason}</h3>
+            </div>
+            <div class="var">
+                <h2 for="" class="Formh2">Signature of owner/agent:_____________________________________________________________</h2><br>
+                <img class="sign" src="./img/car-check-sign-A.png" alt="pic">
+            </div>
+        </form>
+        <p class="contact">For more information about towing authorization requirements or the Palm Beach County Towing Ordinance, contact the Consumer Affairs Division through out website at: <span class="dec site">www.pbcgov.com/consumer</span> or call 561-712-6600 (Boca/Delray/Glades call toll free 888-852-7362).</p>
+    </div>    
+</body>
+</html>
