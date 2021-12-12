@@ -93,7 +93,7 @@ return `
 <body>
    <header class="faxHeader">
        <div class="faxHeaderBox">
-            <img class="stamp" src=${photo1} alt="seal">
+            <img class="stamp" src="http://sapphireh3.sg-host.com/wp-content/uploads/2021/12/PBCFnSeal2.png" alt="seal">
         <div class="TitleBox">
                     <h3 class="state">Palm Beach County, Florida</h3>
                     <h1 class="title">Fax Authorization</h1>
@@ -162,7 +162,7 @@ return `
                 <h2 for="" class="Formh2">Reason for Removal:___<span class="infoInput">${reason}</span>__________________________________________</h2> 
             </div>
             <div class="var">
-                <h2 for="" class="Formh2">Signature of owner/agent:___<img class="sign" src=${photo2} alt="pic"></h2>
+                <h2 for="" class="Formh2">Signature of owner/agent:___<img class="sign" src="http://sapphireh3.sg-host.com/wp-content/uploads/2021/12/car-check-sign-A.png" alt="pic"></h2>
                 
             </div>
         </form>
