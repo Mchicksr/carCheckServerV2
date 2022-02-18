@@ -8,7 +8,9 @@ import communityRoutes from './routes/community.js'
 import commentsRoutes from './routes/comments.js'
 import usersRouter from './routes/users.js'
 import stickerRouter from './routes/sticker.js'
+import violationRouter from './routes/violation_type.js'
 import pdfRouter from './routes/pdf.js'
+import logRouter from './routes/log.js'
 import imageRouter from './routes/image.js'
 
 const app = express()
@@ -24,7 +26,9 @@ app.use('/cars',carsRoutes)
 app.use('/comments',commentsRoutes)
 app.use('/user', usersRouter)
 app.use('/sticker',stickerRouter)
+app.use('/violation',violationRouter)
 app.use('/',pdfRouter)
+app.use('/',logRouter)
 app.use('/image',imageRouter)
 app.get('/',(req,res)=>{
     res.send('car-check is up!')

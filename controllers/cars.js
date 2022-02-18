@@ -33,15 +33,29 @@ export const deletePost = async (req,res) => {
     res.json({message: "Post deleted successfully."})
 }
 
-export const addViolation = async (req,res) => {
-    const {id} = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
-    const car = await CarMessage.findById(id)
-    const updatedViolation = await CarMessage.findByIdAndUpdate(id,{violations:car.violations + 1},{new: true})
+// export const addViolation = async (req,res) => {
+//     const {id} = req.params
+//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
+//     const car = await CarMessage.findById(id)
+//     console.log('check',car.violations)
 
-    res.json(updatedViolation)
+//     const updatedViolation = await CarMessage.findByIdAndUpdate(id,{violations:car.violations + 1},{new: true})
+
+//     res.json(updatedViolation)
     
+// }
+
+export const addViolation = async (req,res) => {
+    try {
+        const update = await CarMessage.findById(req.params.id)
+        Object.assign(update,req.body)
+        update.save()
+        res.send({data:update})
+    } catch (error) {
+        
+    }
 }
+
 export const resetViolation = async (req,res) => {
     const {id} = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
