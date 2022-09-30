@@ -13,6 +13,26 @@ export const getCars = async (req,res) => {
     }
 }
 
+export const getCar = async (req,res) => {
+    const {id} = req.params;
+    try {
+        const car = await CarMessage.find({license_plate : id})
+        // console.log('car',car)
+        const findCar = CarMessage.exists({license_plate : id})
+
+        // console.log(await findCar)
+
+        await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
+
+
+        
+
+    } catch (error) {
+        res.status(404).json({message:error.message})
+
+    }
+}
+
 export const createCar = async (req,res) => {
     const car = req.body
     const newCarMessage = new CarMessage({...car})
@@ -32,6 +52,28 @@ export const deletePost = async (req,res) => {
     await CarMessage.findByIdAndRemove(id)
     res.json({message: "Post deleted successfully."})
 }
+
+export const getSafeList = async (req,res) => {
+    const {id} = req.params;
+    try {
+        const car = await CarMessage.find({verified : id})
+        console.log('car',car)
+        const findCar = CarMessage.exists({verified : id})
+
+        console.log(wait, findCar)
+
+        await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
+
+
+        
+
+    } catch (error) {
+        res.status(404).json({message:error.message})
+
+    }
+}
+
+
 
 // export const addViolation = async (req,res) => {
 //     const {id} = req.params
