@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 import CarMessage from '../models/cars.js'
+// import { TaggedMessage } from '../models/cars.js';
+
 
 const router = express.Router();
 export const getCars = async (req,res) => {
@@ -12,6 +14,7 @@ export const getCars = async (req,res) => {
         res.status(404).json({message:error.message})
     }
 }
+
 
 export const getCar = async (req,res) => {
     const {id} = req.params;
@@ -33,6 +36,8 @@ export const getCar = async (req,res) => {
     }
 }
 
+
+
 export const createCar = async (req,res) => {
     const car = req.body
     const newCarMessage = new CarMessage({...car})
@@ -51,6 +56,27 @@ export const deletePost = async (req,res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
     await CarMessage.findByIdAndRemove(id)
     res.json({message: "Post deleted successfully."})
+}
+
+
+export const updateSafeStatus = async (req,res) => {
+    const safe = req.body
+    const {id} = req.params;
+    // const findId = 
+    console.log('id',id)
+    console.log('safe',safe)
+        
+        if(mongoose.Types.ObjectId.isValid(id)){
+    
+           const updatedStatus = await CarMessage.findByIdAndUpdate(id,safe,{new:true}) 
+        res.status(200).json(updatedStatus)
+        
+        }else{
+            res.status(400).json('fail')
+        }
+  
+
+ 
 }
 
 export const getSafeList = async (req,res) => {
@@ -73,8 +99,40 @@ export const getSafeList = async (req,res) => {
     }
 }
 
+// new check and create safe list system
+export const updateVerify = async (req,res) => {
+    const verify = req.body
+    const {id} = req.params;
+    // const findId = 
+    console.log('id',id)
+    console.log('verify',verify)
+    
+    
+        
+        if(mongoose.Types.ObjectId.isValid(id)){
+    
+           const updatedStatus = await CarMessage.findByIdAndUpdate(id,verify,{new:true}) 
+        res.status(200).json(updatedStatus)
+        
+        }else{
+            res.status(400).json('fail')
+        }
+  
 
+ 
+}
 
+export const safeList = async (req,res) =>{
+    const {id} = req.params;
+    const safe = await CarMessage.where('safe').equals(1).where('community_id').equals(id)
+    try {
+        console.log('safe',safe.community_id)
+        res.status(200).json(safe)
+    } catch (error) {
+        console.log('fail')
+        res.status(400)
+    }
+}
 // export const addViolation = async (req,res) => {
 //     const {id} = req.params
 //     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
@@ -108,6 +166,66 @@ export const resetViolation = async (req,res) => {
     
 }
 
+// New Violations system
+// export const violationList = async (req,res) => {
+//     //create a list of violations
+//     const violationList = req.body;
+//     console.log(violationList)
+//     const {id} = req.params
+//     try {
+//         const update = await CarMessage.findById(id)
+//         console.log('id',update)
+
+//         await CarMessage.findByIdAndUpdate(id,{
+//             $addToSet:{
+//                 violations_list:violationList
+//             }
+//         })
+
+//         res.status(200).json(violationList)
+//     } catch (error) {
+//         res.status(404).send(error.message)
+//     }
+// }
+export const violationList = async (req,res) => {
+    //create a list of violations
+    const violationList = req.body;
+    const {id} = req.params
+    // const formatList = {"violation":violationList}
+    
+    const query = {'license_plate':id}
+    // const newArr = violationList.violation_list.map(item => console.log(item))
+    // console.log('new',newArr)
+    try {
+        console.log('lp',query)
+        console.log('body',violationList)
+        // const update = await CarMessage.findById(id)
+        // console.log('id',update)
+
+         await CarMessage.findOneAndUpdate(query,{
+            $addToSet:{
+                violations_list:violationList
+            }
+        })
+        // console.log('ans', ans)
+        res.status(200).json(violationList)
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}
+
+
+
+export const safe = async (req,res) => {
+    try {
+        const safe = await CarMessage.find({verified: 'verified'})
+        // safe.save()
+        res.status(200).json(safe)
+    } catch (error) {
+        res.status(404).json({message:error.message})
+    }
+}
+
 export const verify = async (req,res) => {
     const {id} = req.params
     if(!req.userId) {
@@ -131,6 +249,30 @@ export const deleteCar = async (req,res) => {
     await CarMessage.findByIdAndDelete(id)
     res.json({message:"Car deleted successfullt"})
 
+}
+
+export const BulkCars = async (req,res) => {
+    try {
+        const theTime = await CarMessage.where("modified").lte("2021-12-12T23:55:24.569Z")
+        // const theTime = await CarMessage.find({modified:"2022-11-23T15:09:36.796Z"})
+        console.log("theTime",theTime)
+        res.status(200).json(theTime)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400)
+    }
+}
+export const deleteCars = async (req,res) => {
+    const {tmz} =req.params
+   console.log(tmz)
+        // const theTime = await CarMessage.where("modified").lte("2022-11-25T16:37:09.791Z")
+        // const theTime = await CarMessage.deleteMany({modified:{$lte:"2022-11-25T16:37:09.791Z"}})
+        const theTime = await CarMessage.deleteMany({modified:{$lte:"2021-12-12T23:55:24.569Z"}})
+        console.log("theTime",theTime)
+        res.status(200).json(theTime)
+        
+   
 }
 
 export default router;

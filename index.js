@@ -12,6 +12,8 @@ import violationRouter from './routes/violation_type.js'
 import pdfRouter from './routes/pdf.js'
 import logRouter from './routes/log.js'
 import imageRouter from './routes/image.js'
+import userRouter from './Authentication/googleAuth.js'
+import editDatabase from './controllers/database.js'
 
 const app = express()
 dotenv.config()
@@ -30,6 +32,8 @@ app.use('/violation',violationRouter)
 app.use('/',pdfRouter)
 app.use('/',logRouter)
 app.use('/image',imageRouter)
+app.use('/',userRouter)
+app.use('/', editDatabase)
 app.get('/',(req,res)=>{
     res.send('car-check is up!')
 })
