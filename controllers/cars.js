@@ -63,8 +63,8 @@ export const updateSafeStatus = async (req,res) => {
     const safe = req.body
     const {id} = req.params;
     // const findId = 
-    console.log('id',id)
-    console.log('safe',safe)
+    // console.log('id',id)
+    // console.log('safe',safe)
         
         if(mongoose.Types.ObjectId.isValid(id)){
     
@@ -126,7 +126,8 @@ export const safeList = async (req,res) =>{
     const {id} = req.params;
     const safe = await CarMessage.where('safe').equals(1).where('community_id').equals(id)
     try {
-        console.log('safe',safe.community_id)
+        // console.log('safe',safe.community_id)
+        // console.log('safe',safe)
         res.status(200).json(safe)
     } catch (error) {
         console.log('fail')
