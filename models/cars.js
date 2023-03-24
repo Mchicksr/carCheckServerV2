@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 
 const taggedSchema = mongoose.Schema({
-    violation:{type:[String], default:[]},
+    // violation:{type:[String], default:[]},
+    // violation:{type:{sticker:{Type: Boolean,default:true},reason:[String]}, default:[]},
+
     modified:{type:Date, default:new Date()}
 })
 // export const TaggedMessage = mongoose.model('taggedMessage',taggedSchema);
@@ -23,7 +25,8 @@ const carSchema = mongoose.Schema({
     car_address:String,
     // violations_list:{type:[String],default:[]},
     // violations_list:taggedSchema,
-    violations_list:[ {violation:String, modified:{type:Date, default:new Date()}}],
+    // violations_list:[ {violation:String, modified:{type:Date, default:new Date()}}],
+    violations_list:[{sticker:{type:Boolean, default:true}, reason:[ {violation:String, modified:{type:Date, default:new Date()}}]}],
     safe:{type:Number, default:0}
     
 

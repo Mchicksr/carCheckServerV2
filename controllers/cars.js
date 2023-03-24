@@ -36,7 +36,30 @@ export const getCar = async (req,res) => {
     }
 }
 
+export const findCars = async (req,res) => {
+    const dates = req.body
+    const {id} = req.params
+    console.log('id',id)
+    console.log('date',dates)
+    console.log('param1', dates[0])
+    console.log('param2', dates[1])
+    const para1 = dates[0]
+    const para2 = dates[1]
+    const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(para2)
+    console.log(search)
+    res.status(200).json(search)
+}
 
+export const getCollection = async (req,res) => {
+    const commId = req.body
+    const id = req.params
+    console.log('param1', commId)
+    console.log('param2', id)
+    const search = await CarMessage.where('community_id').equals('637c445c0f3e3009ca5059e1')
+    console.log(search)
+    res.status(200).json(search)
+
+}
 
 export const createCar = async (req,res) => {
     const car = req.body
@@ -198,18 +221,26 @@ export const violationList = async (req,res) => {
     // const newArr = violationList.violation_list.map(item => console.log(item))
     // console.log('new',newArr)
     try {
-        console.log('lp',query)
-        console.log('body',violationList)
+        // console.log('lp',query)
+        // console.log('body',violationList)
         // const update = await CarMessage.findById(id)
         // console.log('id',update)
 
-         await CarMessage.findOneAndUpdate(query,{
+        await CarMessage.findOneAndUpdate(query,{
+            // $addToSet:{
+            //     violations_list:violationList
+            // }
             $addToSet:{
                 violations_list:violationList
             }
+            // $addToSet:{
+            //     reason:violationList
+            // }
         })
-        // console.log('ans', ans)
-        res.status(200).json(violationList)
+
+        const updated =  await CarMessage.find(query)
+        console.log('ans', updated)
+        res.status(200).json(updated)
     } catch (error) {
         res.status(404).send(error.message)
     }
