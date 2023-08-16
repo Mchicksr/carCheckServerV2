@@ -61,46 +61,6 @@ export const getCollection = async (req, res) => {
 
 }
 
-// export const createCar = async (req, res) => {
-//     const car = req.body
-//     const {license_plate,community_id} = car
-//     const newCarMessage = new CarMessage({ ...car })
-//     console.log('lp',license_plate)
-//     console.log('lp',community_id)
-//     try {
-//        CarMessage.findOne({ license_plate, community_id }, (error, result) => {
-//             if (error) {
-//               console.error(error);
-//               // Handle the error
-//             } else {
-//               if (result) {
-//                 // Both fields exist
-//                 console.log('Fields exist');
-                
-//               } else {
-//                 // Either one or both fields do not exist
-//                 console.log('Fields do not exist');
-//                 await newCarMessage.save()
-            
-//                 res.status(201).json(newCarMessage)
-//               }
-//             }
-//           });
-//         //   console.log('the car',exists)
-//         //   if(!exists){
-//         //     await newCarMessage.save()
-            
-//         //         res.status(201).json(newCarMessage)
-//         //   } else {
-//         //         res.status(400).json({message:'Car already Exist'})
-
-//         //   }
-       
-//     } catch (error) {
-//         res.status(409).json({ message: error.message })
-//     }
-// }
-
 export const createCar = async (req, res) => {
     const car = req.body;
     const { license_plate, community_id } = car;
@@ -118,41 +78,11 @@ export const createCar = async (req, res) => {
         res.status(201).json(newCarMessage);
       }
     } catch (error) {
+        console.log('error',error)
       res.status(409).json({ message: error.message });
     }
   };
 
-// export const createCar = (carData) => async (dispatch) => {
-//     try {
-//       const newArr = [...carData.violations_list];
-//       const parsArr = [];
-//       const completeArray = [{ "reason": [] }];
-//       let finalArr;
-//       newArr.forEach((item) => {
-//         const updated = JSON.parse(item);
-//         parsArr.push(updated);
-//         finalArr = completeArray.map((arr) => ({ ...arr, "reason": parsArr }));
-//       });
-//       const updatedVio = { ...carData, violations_list: finalArr };
-  
-//       const response = await api.createCars(updatedVio);
-  
-//       if (response.status === 201) {
-//         // Car created successfully
-//         const data = response.data;
-//         dispatch({ type: CREATE_CARS, payload: data });
-//       } else {
-//         // Handle other status codes or error scenarios
-//         const errorResponse = response.data;
-//         // Display the error message in React (e.g., using a toast, alert, or rendering a component)
-//         alert(errorResponse.message);
-//       }
-//     } catch (error) {
-//       // Handle network errors or other exceptions
-//       console.log(error);
-//       alert('An error occurred. Please try again.');
-//     }
-//   };
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
@@ -166,9 +96,7 @@ export const deletePost = async (req, res) => {
 export const updateSafeStatus = async (req, res) => {
     const safe = req.body
     const { id } = req.params;
-    // const findId = 
-    // console.log('id',id)
-    // console.log('safe',safe)
+
 
     if (mongoose.Types.ObjectId.isValid(id)) {
 
@@ -236,17 +164,6 @@ export const safeList = async (req, res) => {
         res.status(400)
     }
 }
-// export const addViolation = async (req,res) => {
-//     const {id} = req.params
-//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`)
-//     const car = await CarMessage.findById(id)
-//     console.log('check',car.violations)
-
-//     const updatedViolation = await CarMessage.findByIdAndUpdate(id,{violations:car.violations + 1},{new: true})
-
-//     res.json(updatedViolation)
-
-// }
 
 export const addViolation = async (req, res) => {
     try {
@@ -269,61 +186,28 @@ export const resetViolation = async (req, res) => {
 
 }
 
-// New Violations system
-// export const violationList = async (req,res) => {
-//     //create a list of violations
-//     const violationList = req.body;
-//     console.log(violationList)
-//     const {id} = req.params
-//     try {
-//         const update = await CarMessage.findById(id)
-//         console.log('id',update)
 
-//         await CarMessage.findByIdAndUpdate(id,{
-//             $addToSet:{
-//                 violations_list:violationList
-//             }
-//         })
-
-//         res.status(200).json(violationList)
-//     } catch (error) {
-//         res.status(404).send(error.message)
-//     }
-// }
 export const violationList = async (req, res) => {
-    //create a list of violations
     const violationList = req.body;
     const { id } = req.params
-    // const formatList = {"violation":violationList}
-
     const query = { 'license_plate': id }
-    // const newArr = violationList.violation_list.map(item => console.log(item))
-    // console.log('new',newArr)
     try {
-        // console.log('lp',query)
-        // console.log('body',violationList)
-        // const update = await CarMessage.findById(id)
-        // console.log('id',update)
-
         await CarMessage.findOneAndUpdate(query, {
-            // $addToSet:{
-            //     violations_list:violationList
-            // }
+         
             $addToSet: {
                 violations_list: violationList
             }
-            // $addToSet:{
-            //     reason:violationList
-            // }
+           
         })
 
         const updated = await CarMessage.find(query)
-        console.log('ans', updated)
         res.status(200).json(updated)
     } catch (error) {
         res.status(404).send(error.message)
     }
 }
+
+
 
 // console.log('violation', vName.violation)
 export const removeViolation = async (req, res) => {
@@ -332,18 +216,48 @@ export const removeViolation = async (req, res) => {
     const vName = req.body
     const VnameString = vName.violation
     console.log('id', id)
+    console.log('req', vName)
    try {
-    
-      const remove =  await CarMessage.findOneAndUpdate(
-            { _id: id },
-            { $pull: { 'violations_list.$[].reason': { violation: VnameString } } },
-        
-        )
-        // const check = await CarMessage.find({id:id})
-            console.log('ans',remove)
-            // console.log('ans',check)
-            res.status(200).json(remove);
+    const indexToRemove = vName.index
+    console.log('ll',indexToRemove)
+    //   const remove =  await CarMessage.findOneAndUpdate(
+    //         { _id: id },
+    //         { $unset: { [`violations_list.${indexToRemove}`]: 1 } },
+            
+    //     )
+    //     const restore = await CarMessage.updateOne(
+    //         {_id:id},
+    //         {$pull: { violations_list: null }},
+    //         (err, result) => {
+    //             console.log('click2')
+    //             if (err) {
+    //               console.error('Error removing null values:', err);
+    //             } else {
+    //               console.log('Null values removed successfully:', result);
+    //             }
+    //           }
+    //     )
+    //         res.status(200).json(restore);
+    const remove = await CarMessage.findOneAndUpdate(
+        { _id: id },
+        { $unset: { [`violations_list.${indexToRemove}`]: 1 } }
+    );
+
+    CarMessage.updateOne(
+        { _id: id },
+        { $pull: { violations_list: null } },
+        (err, restore) => {
+            if (err) {
+                console.error('Error removing null values:', err);
+                res.status(500).json({ error: 'Error occurred' });
+            } else {
+                console.log('Null values removed successfully:', remove);
+                res.status(200).json(remove);
+            }
+        }
+    );
    } catch (error) {
+    console.log('no')
      res.status(404).send(error.message)
    }
 
@@ -378,6 +292,36 @@ export const verify = async (req, res) => {
     res.status(200).json(updatedCar)
 }
 
+
+export const addCarImage = async (req, res) => {
+    const { id } = req.params
+    const { car_image } = req.body
+    console.log('image', car_image)
+    console.log("lp",id)
+    const query = { 'license_plate': id }
+    try {
+        await CarMessage.findOneAndUpdate(query, {
+            $addToSet: {
+                car_image: car_image
+            }
+        })
+        const updated = await CarMessage.find(query)
+        const completeUpdate = updated.map((item) => item.car_image)
+        console.log('updated', updated)
+        console.log('updated_CarImage', completeUpdate)
+        res.status(200).json(completeUpdate)
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}
+
+
+// //////////////////////////////////////////
+// ////////////////Admin/////////////////////
+// /////////////////////////////////////////
+
+
+
 export const deleteCar = async (req, res) => {
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No car with id: ${id}`)
@@ -409,5 +353,24 @@ export const deleteCars = async (req, res) => {
 
 
 }
+
+export const updateSchema = async (req,res) => {
+    try {
+        
+        CarMessage.updateMany({}, { $set: { car_image: [] } }, (err, result) => {
+            if (err) {
+              console.error(err);
+              res.status(400)
+            } else {
+              console.log(`${result.nModified} documents updated`);
+              res.status(200).json(result)
+            }
+          });
+    } catch (error) {
+        conosle.log(error)
+        res.status(400)
+    }
+        
+    }
 
 export default router;
