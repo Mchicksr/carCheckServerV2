@@ -20,7 +20,7 @@ export const getCar = async (req, res) => {
     const { id } = req.params;
     try {
         const car = await CarMessage.find({ license_plate: id })
-        // console.log('car',car)
+        console.log('car',car)
         const findCar = CarMessage.exists({ license_plate: id })
 
         // console.log(await findCar)
@@ -41,14 +41,40 @@ export const findCars = async (req, res) => {
     const { id } = req.params
     console.log('id', id)
     console.log('date', dates)
-    console.log('param1', dates[0])
-    console.log('param2', dates[1])
+    
+
     const para1 = dates[0]
     const para2 = dates[1]
-    const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(para2)
+    const dateStr = para2;
+const timeStr = '23:00:00'; // Represents 11 PM
+// Combine date and time strings into a single string
+const dateTimeStr = `${dateStr}T${timeStr}.000Z`;
+
+// Create a Date object from the combined string
+const dateTime = new Date(dateTimeStr);
+
+// Convert the Date object to ISO 8601 format
+const time2 = dateTime.toISOString();
+
+console.log(time2);
+
+    const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(time2)
     console.log(search)
     res.status(200).json(search)
 }
+// export const findCars = async (req, res) => {
+//     const dates = req.body
+//     const { id } = req.params
+//     console.log('id', id)
+//     console.log('date', dates)
+//     console.log('param1', dates[0])
+//     console.log('param2', dates[1])
+//     const para1 = dates[0]
+//     const para2 = dates[1]
+//     const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(para2)
+//     console.log(search)
+//     res.status(200).json(search)
+// }
 
 export const getCollection = async (req, res) => {
     const commId = req.body
@@ -332,7 +358,7 @@ export const deleteCar = async (req, res) => {
 
 export const BulkCars = async (req, res) => {
     try {
-        const theTime = await CarMessage.where("modified").lte("2021-12-12T23:55:24.569Z")
+        const theTime = await CarMessage.where("modified").lte("2023-03-24T13:40:19.595+00:00")
         // const theTime = await CarMessage.find({modified:"2022-11-23T15:09:36.796Z"})
         console.log("theTime", theTime)
         res.status(200).json(theTime)
@@ -347,7 +373,7 @@ export const deleteCars = async (req, res) => {
     console.log(tmz)
     // const theTime = await CarMessage.where("modified").lte("2022-11-25T16:37:09.791Z")
     // const theTime = await CarMessage.deleteMany({modified:{$lte:"2022-11-25T16:37:09.791Z"}})
-    const theTime = await CarMessage.deleteMany({ modified: { $lte: "2021-12-12T23:55:24.569Z" } })
+    const theTime = await CarMessage.deleteMany({ modified: { $lte: "2023-05-29T03:56:05.912+00:00" } })
     console.log("theTime", theTime)
     res.status(200).json(theTime)
 
