@@ -14,6 +14,7 @@ import logRouter from './routes/log.js'
 import imageRouter from './routes/image.js'
 import userRouter from './Authentication/googleAuth.js'
 import editDatabase from './controllers/database.js'
+import violationArr from './routes/violationList.js'
 
 const app = express()
 dotenv.config()
@@ -29,6 +30,7 @@ app.use('/comments',commentsRoutes)
 app.use('/user', usersRouter)
 app.use('/sticker',stickerRouter)
 app.use('/violation',violationRouter)
+app.use('/violationArr',violationArr)
 app.use('/',pdfRouter)
 app.use('/',logRouter)
 app.use('/image',imageRouter)

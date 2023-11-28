@@ -89,6 +89,7 @@ export const getCollection = async (req, res) => {
 
 export const createCar = async (req, res) => {
     const car = req.body;
+    console.log('triggered',car)
     const { license_plate, community_id } = car;
     const newCarMessage = new CarMessage({ ...car });
   
@@ -215,8 +216,11 @@ export const resetViolation = async (req, res) => {
 
 export const violationList = async (req, res) => {
     const violationList = req.body;
+    console.log('clickViolationList', violationList)
     const { id } = req.params
     const query = { 'license_plate': id }
+    console.log('id', id)
+    console.log('violation', violationList )
     try {
         await CarMessage.findOneAndUpdate(query, {
          
@@ -340,6 +344,8 @@ export const addCarImage = async (req, res) => {
         res.status(404).send(error.message)
     }
 }
+
+
 
 
 // //////////////////////////////////////////
