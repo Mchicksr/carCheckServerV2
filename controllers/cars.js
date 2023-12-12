@@ -39,7 +39,7 @@ export const getCar = async (req, res) => {
 export const findCars = async (req, res) => {
     const dates = req.body
     const { id } = req.params
-    console.log('id', id)
+    // console.log('id', id)
     console.log('date', dates)
     
 
@@ -62,19 +62,7 @@ console.log(time2);
     console.log(search)
     res.status(200).json(search)
 }
-// export const findCars = async (req, res) => {
-//     const dates = req.body
-//     const { id } = req.params
-//     console.log('id', id)
-//     console.log('date', dates)
-//     console.log('param1', dates[0])
-//     console.log('param2', dates[1])
-//     const para1 = dates[0]
-//     const para2 = dates[1]
-//     const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(para2)
-//     console.log(search)
-//     res.status(200).json(search)
-// }
+
 
 export const getCollection = async (req, res) => {
     const commId = req.body
@@ -160,11 +148,6 @@ export const getSafeList = async (req, res) => {
 export const updateVerify = async (req, res) => {
     const verify = req.body
     const { id } = req.params;
-    // const findId = 
-    console.log('id', id)
-    console.log('verify', verify)
-
-
 
     if (mongoose.Types.ObjectId.isValid(id)) {
 
@@ -183,8 +166,6 @@ export const safeList = async (req, res) => {
     const { id } = req.params;
     const safe = await CarMessage.where('safe').equals(1).where('community_id').equals(id)
     try {
-        // console.log('safe',safe.community_id)
-        // console.log('safe',safe)
         res.status(200).json(safe)
     } catch (error) {
         console.log('fail')
@@ -250,24 +231,7 @@ export const removeViolation = async (req, res) => {
    try {
     const indexToRemove = vName.index
     console.log('ll',indexToRemove)
-    //   const remove =  await CarMessage.findOneAndUpdate(
-    //         { _id: id },
-    //         { $unset: { [`violations_list.${indexToRemove}`]: 1 } },
-            
-    //     )
-    //     const restore = await CarMessage.updateOne(
-    //         {_id:id},
-    //         {$pull: { violations_list: null }},
-    //         (err, result) => {
-    //             console.log('click2')
-    //             if (err) {
-    //               console.error('Error removing null values:', err);
-    //             } else {
-    //               console.log('Null values removed successfully:', result);
-    //             }
-    //           }
-    //     )
-    //         res.status(200).json(restore);
+   
     const remove = await CarMessage.findOneAndUpdate(
         { _id: id },
         { $unset: { [`violations_list.${indexToRemove}`]: 1 } }

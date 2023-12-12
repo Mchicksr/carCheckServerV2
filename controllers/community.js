@@ -30,11 +30,9 @@ export const createCommunity = async (req, res) => {
 export const createComRules = async (req, res) => {
     const rules = req.body
     const { id } = req.params
-    // console.log(id)
     const query = { 'community': id }
-    // console.log(query)
    const check = await  CommunityMessage.exists(query)
-    console.log('check',check)
+    // console.log('check',check)
     try {
         if(check){
 
@@ -43,7 +41,7 @@ export const createComRules = async (req, res) => {
                     rules: rules
                 }
             })
-            console.log('newrules',newRules)
+            // console.log('newrules',newRules)
             res.status(200).json(newRules)
         }else{
            res.send('there is no community with that name')
@@ -55,24 +53,6 @@ export const createComRules = async (req, res) => {
     }
 
 
-
-
-
-    // try {
-    //     if(mongoose.Types.ObjectId.isValid(id)){
-    //         const newRules =  await CommunityMessage.findByIdAndUpdate(id,{
-    //             $addToSet:{
-    //                 rules:rules
-    //             }
-    //         })
-    //         console.log(newRules)
-    //         res.status(200).json(rules)
-    //     } else {
-    //        res.send('there is no community with that Id')
-    //     }
-    // } catch (error) {
-    //     res.status(400).json({message:error.message})
-    // }
 }
 
 export const deleteCommunity = async (req, res) => {
@@ -84,5 +64,41 @@ export const deleteCommunity = async (req, res) => {
     res.json({ message: "Post deleted successfully." });
 }
 
+// export const updateCommunityRules = async (req,res) => {
+//     const {id} = req.params
+//     const newRulesArray = req.body
+//     await CommunityMessage.findOneAndUpdate(
+//         { 'communities._id': id },
+//         { $set: { 'communities.$.rules': newRulesArray } },
+//         { new: true },
+//         (err, updatedDocument) => {
+//           if (err) {
+//             console.error(err);
+//             // Handle error
+//           } else {
+//             console.log(updatedDocument);
+//             res.status(200).json(updatedDocument)
+//             // Handle success
+//           }
+//         }
+//       );
+// }
+
+export const updateCommunityRules = async (req, res) => {
+    const { id } = req.params;
+    const newRulesArray = req.body;
+    console.log('id',id)
+    console.log('newr',newRulesArray)
+
+    try {
+       
+        const updatedDocument = await CommunityMessage.findByIdAndUpdate(id,newRulesArray,{new:true})
+        console.log(updatedDocument);
+        res.status(200).json(updatedDocument);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 export default router;
