@@ -35,6 +35,25 @@ export const getCar = async (req, res) => {
 
     }
 }
+export const reGetCar = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const car = await CarMessage.find({ _id: id })
+        console.log('car',car)
+        const findCar = CarMessage.exists({ _id: id })
+        console.log('car',car)
+        // console.log(await findCar)
+
+        await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
+
+
+
+
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+
+    }
+}
 
 export const findCars = async (req, res) => {
     const dates = req.body
@@ -98,6 +117,7 @@ export const createCar = async (req, res) => {
     }
   };
 
+  
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
@@ -199,7 +219,8 @@ export const violationList = async (req, res) => {
     const violationList = req.body;
     console.log('clickViolationList', violationList)
     const { id } = req.params
-    const query = { 'license_plate': id }
+    // const query = { 'license_plate': id }
+    const query = { '_id': id }
     console.log('id', id)
     console.log('violation', violationList )
     try {
@@ -292,7 +313,7 @@ export const addCarImage = async (req, res) => {
     const { car_image } = req.body
     console.log('image', car_image)
     console.log("lp",id)
-    const query = { 'license_plate': id }
+    const query = { '_id': id }
     try {
         await CarMessage.findOneAndUpdate(query, {
             $addToSet: {
@@ -307,6 +328,15 @@ export const addCarImage = async (req, res) => {
     } catch (error) {
         res.status(404).send(error.message)
     }
+}
+
+export const switchAutoTow = async (req, res) => {
+    const { id } = req.params
+    console.log('id', id)
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No car with id: ${id}`)
+    const car = await CarMessage.findById(id)
+    const updatedCar = await CarMessage.findByIdAndUpdate(id, { autoTow: !car.autoTow }, { new: true })
+    res.json(updatedCar)
 }
 
 
