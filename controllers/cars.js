@@ -199,7 +199,9 @@ export const violationList = async (req, res) => {
     const violationList = req.body;
     console.log('clickViolationList', violationList)
     const { id } = req.params
-    const query = { 'license_plate': id }
+    // const query = { 'license_plate': id }
+    const query = { '_id': id }
+    console.log('query', query)
     console.log('id', id)
     console.log('violation', violationList )
     try {
