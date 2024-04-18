@@ -20,10 +20,10 @@ export const getCar = async (req, res) => {
     const { id } = req.params;
     try {
         const car = await CarMessage.find({ license_plate: id })
-        console.log('car',car)
+        //console.log('car',car)
         const findCar = CarMessage.exists({ license_plate: id })
 
-        // console.log(await findCar)
+        // //console.log(await findCar)
 
         await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
 
@@ -39,8 +39,8 @@ export const getCar = async (req, res) => {
 export const findCars = async (req, res) => {
     const dates = req.body
     const { id } = req.params
-    // console.log('id', id)
-    console.log('date', dates)
+    // //console.log('id', id)
+    //console.log('date', dates)
     
 
     const para1 = dates[0]
@@ -56,10 +56,10 @@ const dateTime = new Date(dateTimeStr);
 // Convert the Date object to ISO 8601 format
 const time2 = dateTime.toISOString();
 
-console.log(time2);
+//console.log(time2);
 
     const search = await CarMessage.where('community_id').equals(id).where('modified').gte(para1).where('modified').lte(time2)
-    console.log(search)
+    //console.log(search)
     res.status(200).json(search)
 }
 
@@ -67,17 +67,17 @@ console.log(time2);
 export const getCollection = async (req, res) => {
     const commId = req.body
     const id = req.params
-    console.log('param1', commId)
-    console.log('param2', id)
+    //console.log('param1', commId)
+    //console.log('param2', id)
     const search = await CarMessage.where('community_id').equals('637c445c0f3e3009ca5059e1')
-    console.log(search)
+    //console.log(search)
     res.status(200).json(search)
 
 }
 
 export const createCar = async (req, res) => {
     const car = req.body;
-    console.log('triggered',car)
+    //console.log('triggered',car)
     const { license_plate, community_id } = car;
     const newCarMessage = new CarMessage({ ...car });
   
@@ -93,7 +93,7 @@ export const createCar = async (req, res) => {
         res.status(201).json(newCarMessage);
       }
     } catch (error) {
-        console.log('error',error)
+        //console.log('error',error)
       res.status(409).json({ message: error.message });
     }
   };
@@ -130,10 +130,10 @@ export const getSafeList = async (req, res) => {
     const { id } = req.params;
     try {
         const car = await CarMessage.find({ verified: id })
-        console.log('car', car)
+        //console.log('car', car)
         const findCar = CarMessage.exists({ verified: id })
 
-        console.log(wait, findCar)
+        //console.log(wait, findCar)
 
         await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
 
@@ -168,7 +168,7 @@ export const safeList = async (req, res) => {
     try {
         res.status(200).json(safe)
     } catch (error) {
-        console.log('fail')
+        //console.log('fail')
         res.status(400)
     }
 }
@@ -197,13 +197,13 @@ export const resetViolation = async (req, res) => {
 
 export const violationList = async (req, res) => {
     const violationList = req.body;
-    console.log('clickViolationList', violationList)
+    //console.log('clickViolationList', violationList)
     const { id } = req.params
     // const query = { 'license_plate': id }
     const query = { '_id': id }
-    console.log('query', query)
-    console.log('id', id)
-    console.log('violation', violationList )
+    //console.log('query', query)
+    //console.log('id', id)
+    //console.log('violation', violationList )
     try {
         await CarMessage.findOneAndUpdate(query, {
          
@@ -222,17 +222,17 @@ export const violationList = async (req, res) => {
 
 
 
-// console.log('violation', vName.violation)
+// //console.log('violation', vName.violation)
 export const removeViolation = async (req, res) => {
     const {id} = req.params
     // const id  = '641f6d9e089643c4891d6590'
     const vName = req.body
     const VnameString = vName.violation
-    console.log('id', id)
-    console.log('req', vName)
+    //console.log('id', id)
+    //console.log('req', vName)
    try {
     const indexToRemove = vName.index
-    console.log('ll',indexToRemove)
+    //console.log('ll',indexToRemove)
    
     const remove = await CarMessage.findOneAndUpdate(
         { _id: id },
@@ -247,13 +247,13 @@ export const removeViolation = async (req, res) => {
                 console.error('Error removing null values:', err);
                 res.status(500).json({ error: 'Error occurred' });
             } else {
-                console.log('Null values removed successfully:', remove);
+                //console.log('Null values removed successfully:', remove);
                 res.status(200).json(remove);
             }
         }
     );
    } catch (error) {
-    console.log('no')
+    //console.log('no')
      res.status(404).send(error.message)
    }
 
@@ -292,8 +292,8 @@ export const verify = async (req, res) => {
 export const addCarImage = async (req, res) => {
     const { id } = req.params
     const { car_image } = req.body
-    console.log('image', car_image)
-    console.log("lp",id)
+    //console.log('image', car_image)
+    //console.log("lp",id)
     const query = { 'license_plate': id }
     try {
         await CarMessage.findOneAndUpdate(query, {
@@ -303,8 +303,8 @@ export const addCarImage = async (req, res) => {
         })
         const updated = await CarMessage.find(query)
         const completeUpdate = updated.map((item) => item.car_image)
-        console.log('updated', updated)
-        console.log('updated_CarImage', completeUpdate)
+        //console.log('updated', updated)
+        //console.log('updated_CarImage', completeUpdate)
         res.status(200).json(completeUpdate)
     } catch (error) {
         res.status(404).send(error.message)
@@ -315,13 +315,16 @@ export const toggleTow = async (req, res) => {
     const {id} = req.params
     const car = await CarMessage.findById(id)
    const towed = car.towed
+//    console.log('towed',towed)
 try {
     
     if (towed === false) {
        let updatedTow = await CarMessage.findByIdAndUpdate(id, { towed: true }, { new: true })
-        res.status(200).json(updatedTow)
+    //    console.log('updatedTow1',updatedTow)
+       res.status(200).json(updatedTow)
     } else if (towed === true) {
-       let updatedTow = await CarMessage.findByIdAndUpdate(id, { towed: false }, { new: true })
+        let updatedTow = await CarMessage.findByIdAndUpdate(id, { towed: false }, { new: true })
+        // console.log('updatedTow2',updatedTow)
        res.status(200).json(updatedTow)
     }
 } catch (error) {
@@ -352,21 +355,21 @@ export const BulkCars = async (req, res) => {
     try {
         const theTime = await CarMessage.where("modified").lte("2023-03-24T13:40:19.595+00:00")
         // const theTime = await CarMessage.find({modified:"2022-11-23T15:09:36.796Z"})
-        console.log("theTime", theTime)
+        //console.log("theTime", theTime)
         res.status(200).json(theTime)
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(400)
     }
 }
 export const deleteCars = async (req, res) => {
     const { tmz } = req.params
-    console.log(tmz)
+    //console.log(tmz)
     // const theTime = await CarMessage.where("modified").lte("2022-11-25T16:37:09.791Z")
     // const theTime = await CarMessage.deleteMany({modified:{$lte:"2022-11-25T16:37:09.791Z"}})
     const theTime = await CarMessage.deleteMany({ modified: { $lte: "2023-05-29T03:56:05.912+00:00" } })
-    console.log("theTime", theTime)
+    //console.log("theTime", theTime)
     res.status(200).json(theTime)
 
 
@@ -380,7 +383,7 @@ export const updateSchema = async (req,res) => {
               console.error(err);
               res.status(400)
             } else {
-              console.log(`${result.nModified} documents updated`);
+              //console.log(`${result.nModified} documents updated`);
               res.status(200).json(result)
             }
           });
