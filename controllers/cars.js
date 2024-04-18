@@ -311,6 +311,26 @@ export const addCarImage = async (req, res) => {
     }
 }
 
+export const toggleTow = async (req, res) => {
+    const {id} = req.params
+    const car = await CarMessage.findById(id)
+   const towed = car.towed
+try {
+    
+    if (towed === false) {
+       let updatedTow = await CarMessage.findByIdAndUpdate(id, { towed: true }, { new: true })
+        res.status(200).json(updatedTow)
+    } else if (towed === true) {
+       let updatedTow = await CarMessage.findByIdAndUpdate(id, { towed: false }, { new: true })
+       res.status(200).json(updatedTow)
+    }
+} catch (error) {
+    res.status(404).send(error.message)
+}
+
+    
+}
+
 
 
 

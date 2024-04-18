@@ -1,6 +1,6 @@
 import express from "express"
 import auth from '../middleware/auth.js'
-import { createCar, getCars, addViolation, getSafeList,resetViolation,verify, deleteCar,getCar,safe, violationList, safeList, updateVerify, updateSafeStatus,deleteCars,BulkCars, findCars, getCollection, removeViolation, updateSchema, addCarImage } from "../controllers/cars.js"
+import { createCar, getCars, addViolation, getSafeList,resetViolation,verify, deleteCar,getCar,safe, violationList, safeList, updateVerify, updateSafeStatus,deleteCars,BulkCars, findCars, getCollection, removeViolation, updateSchema, addCarImage, toggleTow } from "../controllers/cars.js"
 
 const router = express.Router()
 
@@ -19,6 +19,7 @@ router.patch('/violations/:id',violationList)
 router.patch('/:id/resetviolation', resetViolation)
 router.patch('/admin/schema',updateSchema)
 router.patch('/addCarImage/:id',addCarImage)
+router.patch('/autoTow/:id',toggleTow)
 
 router.patch('/removeViolation/:id', removeViolation)
 router.patch('/:id/verify',auth,verify)

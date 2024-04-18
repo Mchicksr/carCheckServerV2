@@ -29,6 +29,7 @@ const carSchema = mongoose.Schema({
     violations_list:[{sticker:{type:Boolean, default:true}, reason:[ {violation:String, modified:{type:Date, default:new Date()}}]}],
     safe:{type:Number, default:0},
     car_image:{type:[String],default:[]},
+    towed:{type:Boolean, default:false},
 
     
 
