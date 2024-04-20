@@ -35,7 +35,25 @@ export const getCar = async (req, res) => {
 
     }
 }
+export const reGetCar = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const car = await CarMessage.find({ _id: id })
+        console.log('car',car)
+        const findCar = CarMessage.exists({ _id: id })
+        console.log('car',car)
+        // console.log(await findCar)
 
+        await findCar === true ? res.status(200).json(car) : res.status(404).send(`No post with id: ${id}`)
+
+
+
+
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+
+    }
+}
 export const findCars = async (req, res) => {
     const dates = req.body
     const { id } = req.params
@@ -294,7 +312,8 @@ export const addCarImage = async (req, res) => {
     const { car_image } = req.body
     //console.log('image', car_image)
     //console.log("lp",id)
-    const query = { 'license_plate': id }
+    // const query = { 'license_plate': id }
+    const query = { _id: id }
     try {
         await CarMessage.findOneAndUpdate(query, {
             $addToSet: {
