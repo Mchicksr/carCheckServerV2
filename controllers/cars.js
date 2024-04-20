@@ -221,10 +221,8 @@ export const violationList = async (req, res) => {
     const { id } = req.params
     // const query = { 'license_plate': id }
     const query = { '_id': id }
-<<<<<<< HEAD
-=======
     console.log('query', query)
->>>>>>> main
+
     console.log('id', id)
     console.log('violation', violationList )
     try {
@@ -334,15 +332,6 @@ export const addCarImage = async (req, res) => {
     }
 }
 
-<<<<<<< HEAD
-export const switchAutoTow = async (req, res) => {
-    const { id } = req.params
-    console.log('id', id)
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No car with id: ${id}`)
-    const car = await CarMessage.findById(id)
-    const updatedCar = await CarMessage.findByIdAndUpdate(id, { autoTow: !car.autoTow }, { new: true })
-    res.json(updatedCar)
-=======
 export const toggleTow = async (req, res) => {
     const {id} = req.params
     const car = await CarMessage.findById(id)
@@ -361,7 +350,7 @@ try {
 }
 
     
->>>>>>> main
+
 }
 
 
